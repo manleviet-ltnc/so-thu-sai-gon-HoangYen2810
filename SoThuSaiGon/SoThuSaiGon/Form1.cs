@@ -33,15 +33,35 @@ namespace SoThuSaiGon
             else
                 e.Effect = DragDropEffects.Move;
         }
-
+        bool isItemChanged = false;
         private void lstDanhSanh_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Text))
             {
-                ListBox lb = (ListBox)sender;
-                lb.Items.Add(e.Data.GetData(DataFormats.Text));
+                bool test = false;
+                for (int i = 0; i < lstDanhSanh.Items.Count; i++)
+                {
+                    string st = lstDanhSanh.Items[i].ToString();
+                    string data = e.Data.GetData(DataFormats.Text).ToString();
+                    if (data == st)
+                        test = true;
+                }
+                if (test == false)
+                {
+                    int newIndex = lstDanhSanh.IndexFromPoint(lstDanhSanh.PointToClient(new Point(e.X, e.Y)));
+                    lstDanhSanh.Items.Remove(e.Data.GetData(DataFormats.Text));
+                    if (newIndex != -1)
+                        lstDanhSanh.Items.Insert(newIndex, e.Data.GetData(DataFormats.Text));
+                    else
+                    {
+                        ListBox lb = (ListBox)sender;
+                        lb.Items.Add(e.Data.GetData(DataFormats.Text));
+                    }
+                }
+
             }
         }
+        bool isSaves = false;
         private void Save(object sender, EventArgs e)
         {
             StreamWriter write = new StreamWriter("Danhsachthu.txt");
@@ -49,6 +69,7 @@ namespace SoThuSaiGon
             foreach (var item in lstDanhSanh.Items)
                 write.WriteLine(item.ToString());
             write.Close();
+            isSaves = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -110,6 +131,31 @@ namespace SoThuSaiGon
         private void Form1_Load_1(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            lstDanhSanh.Items.Remove(lstDanhSanh.SelectedItem);
+            
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isSaves == false)
+            {
+                DialogResult kq = MessageBox.Show("Bạn có muốn lưu danh sách?", "THÔNG BÁO", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (kq == DialogResult.Yes)
+                {
+                    Save(sender, e);
+                    e.Cancel = false;
+                }
+                else if (kq == DialogResult.No)
+                    e.Cancel = false;
+                else
+                    e.Cancel = true;
+            }
+            else
+                mnuEnd_Click(sender, e);
         }
     }
 }

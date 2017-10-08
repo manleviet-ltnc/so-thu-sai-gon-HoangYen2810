@@ -31,7 +31,9 @@
             this.lstDanhSanh = new System.Windows.Forms.ListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblTime = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hồSơToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLoad = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +45,6 @@
             this.mnuPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCut = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblTime = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -104,16 +105,27 @@
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(318, 247);
+            this.btnSave.Location = new System.Drawing.Point(238, 247);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(44, 40);
+            this.btnSave.Size = new System.Drawing.Size(70, 40);
             this.btnSave.TabIndex = 4;
             this.toolTip1.SetToolTip(this.btnSave, "Lưu danh sách thú vào file Danhsachthu.txt");
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.Save);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnXoa.Image = ((System.Drawing.Image)(resources.GetObject("btnXoa.Image")));
+            this.btnXoa.Location = new System.Drawing.Point(56, 247);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(70, 40);
+            this.btnXoa.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnXoa, "Lưu danh sách thú vào file Danhsachthu.txt");
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -126,6 +138,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lstDanhSanh, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblTime, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnXoa, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -155,6 +168,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(365, 290);
             this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.lblTime, 2);
+            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Location = new System.Drawing.Point(3, 214);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(134, 16);
+            this.lblTime.TabIndex = 5;
+            this.lblTime.Text = "Bây giờ là ...... ngày....";
             // 
             // menuStrip1
             // 
@@ -251,17 +275,7 @@
             this.mnuDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.mnuDelete.Size = new System.Drawing.Size(175, 22);
             this.mnuDelete.Text = "Xóa";
-            // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lblTime, 2);
-            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(3, 214);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(134, 16);
-            this.lblTime.TabIndex = 5;
-            this.lblTime.Text = "Bây giờ là ...... ngày....";
+            this.mnuDelete.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // timer1
             // 
@@ -280,6 +294,7 @@
             this.MinimumSize = new System.Drawing.Size(372, 322);
             this.Name = "Form1";
             this.Text = "SoThuSaiGon";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load_1);
             this.Click += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -313,6 +328,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDelete;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnXoa;
     }
 }
 
